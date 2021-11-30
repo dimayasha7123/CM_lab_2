@@ -1,11 +1,11 @@
 package CM_lab_2;
 
 
-import GaussMethods.GaussClassic;
+import GaussMethods.GaussMethod;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void  main(String[] args) {
         double[][] a = {
                 {2, 1, -1, 1, 2.7},
                 {0.4, 0.5, 4, -8.5, 21.9},
@@ -24,8 +24,6 @@ public class Main {
                 {1.01, 9.99, -5.01, 2},
                 {0.99, 1.01, -4.99, 3}
         };
-        GaussClassic gauss = new GaussClassic(c);
-        gauss.Invoke(true);
-        System.out.println("Error = " + gauss.getErrorRate());
+        new GaussMethod(a).printInfo();
     }
 }
