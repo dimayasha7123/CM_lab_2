@@ -18,7 +18,18 @@ public class Main {
                 {0.25, 0.02, 0.14, -1.0, -1.56},
                 {-0.77, -0.14, 0.06, -0.12, -1.21}
         };
+
+        double[][] denData = new double[][]{
+                {-83.0, 27.0, -13.0, -11.0, 142.0},
+                {5.0, -68.0, 13.0, 24.0, 26.0},
+                {9.0, 54.0, 127.0, 36.0, 23.0},
+                {13.0, 27.0, 34.0, 156.0, 49.0}
+        };
+
+        new LUMethod(data).inverseMatrix();
+
         new LUMethod(data).Invoke();
+
         System.out.println();
         System.out.println();
         new GaussMethod(data, GType.BY_FIRST).printInfo();

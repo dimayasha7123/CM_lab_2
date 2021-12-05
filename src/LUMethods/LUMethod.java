@@ -174,6 +174,70 @@ public class LUMethod {
         System.out.println(matrixToString(Clu, 3));
         System.out.println(matrixToString(y, 3));
         System.out.println(matrixToString(x, 3));
-        return new double[1];
+        return x;
+    }
+
+    public void inverseMatrix() {
+        if (x == null) this.Invoke(true);
+
+        double[][] E = new double[n][n];
+        double[][] inv = new double[n][n];
+        y = new double[n];
+        for (int k = 0; k < n; ++k) {
+            E[k][k] = 1.0;
+
+            for (int i = 0; i < n; ++i) {
+                y[i] = E[k][i];
+                for (int j = 0; j < i; ++j) {
+                    y[i] -= Blu[i][j] * y[j];
+                }
+                y[i] /= Blu[i][i];
+            }
+
+            System.out.println("E" + k);
+            System.out.println(matrixToString(y, 6));
+
+            //обратный ход
+            x = new double[n];
+            for (int i = n - 1; i >= 0; --i) {
+                x[i] = y[i];
+                for (int j = n - 1; j > i; --j) {
+                    x[i] -= Clu[i][j] * x[j];
+                }
+            }
+
+            System.arraycopy(x, 0, inv[k], 0, n);
+        }
+
+        double[][] tmp = new double[n][n];
+
+        for (int i = 0; i < n; ++i) {
+            System.out.println("X" + i);
+            System.out.println(matrixToString(inv[i], 6));
+        }
+
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                tmp[i][j] = inv[j][i];
+            }
+        }
+
+        inv = tmp;
+
+        System.out.println("Inverse matrix");
+        System.out.println(matrixToString(inv, 6));
+
+        double[][] error = new double[n][n];
+        System.out.println("Error");
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                error[i][j] = 0;
+                for (int k = 0; k < n; ++k){
+                    error[i][j] += aSrc[i][k] * inv[k][j];
+                }
+                System.out.printf("%10.3e ", error[i][j]);
+            }
+            System.out.println();
+        }
     }
 }
