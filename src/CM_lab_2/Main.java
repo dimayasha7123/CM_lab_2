@@ -1,29 +1,33 @@
 package CM_lab_2;
 
 
+import GaussMethods.GType;
 import GaussMethods.GaussMethod;
+import LUMethods.LUMethod;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void  main(String[] args) {
-        double[][] a = {
-                {2, 1, -1, 1, 2.7},
-                {0.4, 0.5, 4, -8.5, 21.9},
-                {0.3, -1, 1, 5.2, -3.9},
-                {1, 0.2, 2.5, -1, 9.9}
+    public static void main(String[] args) {
+        double[][] data = new double[][]{
+                {0.12, -1.0, 0.32, -0.18, 0.72},
+                {0.08, -0.12, -0.77, 0.32, 0.58},
+                {0.25, 0.02, 0.14, -1.0, -1.56},
+                {-0.77, -0.14, 0.06, -0.12, -1.21}
         };
+        new LUMethod(data).Invoke();
+        System.out.println();
+        System.out.println();
+        new GaussMethod(data, GType.BY_FIRST).printInfo();
+        System.out.println("======================================================================");
+        new GaussMethod(data, GType.BY_LINE).printInfo();
+        System.out.println("======================================================================");
+        new GaussMethod(data, GType.BY_COLUMN).printInfo();
+        System.out.println("======================================================================");
+        new GaussMethod(data, GType.BY_ALL).printInfo();
 
-        double[][] b = {
-                {2.34, -4.21, -11.61, 14.41},
-                {8.04, 5.22, 0.27, -6.44},
-                {3.92, -7.99, 8.37, 55.56}
-        };
-
-        double[][] c = {
-                {1, 10, -5, 1},
-                {1.01, 9.99, -5.01, 2},
-                {0.99, 1.01, -4.99, 3}
-        };
-        new GaussMethod(a).printInfo();
     }
 }

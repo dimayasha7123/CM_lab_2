@@ -6,7 +6,9 @@
 
 package GaussMethods;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.function.DoubleToIntFunction;
 
 public class GaussMethod {
     //размерность
@@ -71,8 +73,102 @@ public class GaussMethod {
         }
     }
 
-    protected void replaceLines(int i, int j) {
+    protected static int getLen(double x, int digits) {
+        DecimalFormat df = new DecimalFormat("#." +"#".repeat(digits));
+        return df.format(x).length();
+    }
 
+    protected static int getLen(int x){
+        return ((Integer) x).toString().length();
+    }
+
+    protected static String xMatrix(int[] pos){
+        char leftUp = '\u239b';
+        char leftMid = '\u239c';
+        char leftDown = '\u239d';
+        char rightUp = '\u239e';
+        char rightMid = '\u239f';
+        char rightDown = '\u23a0';
+
+        StringBuilder sb = new StringBuilder();
+
+        int N = pos.length;
+        int M = 1;
+
+        int wide = 0;
+
+        for (int i = 0; i < M; ++i) {
+            wide = Math.max(wide, getLen(pos[i]));
+        }
+
+        for (int i = 0; i < N; ++i) {
+
+            if (i == 0) sb.append(leftUp);
+            else if (i == N - 1) sb.append(leftDown);
+            else sb.append(leftMid);
+            sb.append(" ");
+
+            sb.append(String.format("%" + wide + "s ", "x" + (pos[i] + 1)));
+
+            if (i == 0) sb.append(rightUp);
+            else if (i == N - 1) sb.append(rightDown);
+            else sb.append(rightMid);
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    protected static String matrixToString(double[] a, int digits){
+        double[][] b = new double[a.length][1];
+        for (int i = 0; i < b.length; ++i){
+            b[i][0] = a[i];
+        }
+        return matrixToString(b, digits);
+    }
+
+    protected static String matrixToString(double[][] a, int digits) {
+        char leftUp = '\u239b';
+        char leftMid = '\u239c';
+        char leftDown = '\u239d';
+        char rightUp = '\u239e';
+        char rightMid = '\u239f';
+        char rightDown = '\u23a0';
+
+        StringBuilder sb = new StringBuilder();
+
+        int N = a.length;
+        int M = a[0].length;
+
+        int[] wides = new int[M];
+
+        for (int i = 0; i < M; ++i) {
+            for (int j = 0; j < N; ++j) {
+                wides[i] = Math.max(wides[i], getLen(a[j][i], digits));
+            }
+        }
+
+        for (int i = 0; i < N; ++i) {
+
+            if (i == 0) sb.append(leftUp);
+            else if (i == N - 1) sb.append(leftDown);
+            else sb.append(leftMid);
+            sb.append(" ");
+
+            for (int j = 0; j < M; ++j) {
+                String frmStr = "%" + wides[j] + "s ";
+                DecimalFormat df = new DecimalFormat("#." + "#".repeat(digits));
+                sb.append(String.format(frmStr, df.format(a[i][j])));
+            }
+
+            if (i == 0) sb.append(rightUp);
+            else if (i == N - 1) sb.append(rightDown);
+            else sb.append(rightMid);
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    protected void replaceLines(int i, int j) {
         double[] t = a[i];
         a[i] = a[j];
         a[j] = t;
@@ -98,14 +194,20 @@ public class GaussMethod {
     }
 
     public double[] Invoke(boolean print) {
+        int dig = 3;
 
         xPos = new int[n];
         for (int i = 0; i < n; i++) {
             xPos[i] = i;
         }
 
-        for (int i = 0; i < n; ++i) {
+        if (print) {
+            System.out.println(matrixToString(a, dig));
+            System.out.println(matrixToString(b, dig));
+            System.out.println(xMatrix(xPos));
+        }
 
+        for (int i = 0; i < n; ++i) {
             //выбор опорного элемента
             switch (type) {
                 case BY_LINE -> {
@@ -150,7 +252,6 @@ public class GaussMethod {
                     replaceColumns(i, maxK);
                 }
             }
-            ;
             double support = a[i][i];
 
             //делим строку на опорный элемент, чтобы опорный стал единицей
@@ -166,6 +267,13 @@ public class GaussMethod {
                     a[j][k] -= a[i][k] * ratio;
                 }
                 b[j] -= b[i] * ratio;
+            }
+
+
+            if (print) {
+                System.out.println(matrixToString(a, dig));
+                System.out.println(matrixToString(b, dig));
+                System.out.println(xMatrix(xPos));
             }
         }
 
@@ -183,6 +291,7 @@ public class GaussMethod {
             }
         }
 
+        //восстанавливаем порядок x
         double[] xReplaced = new double[n];
         for (int i = 0; i < n; ++i) {
             xReplaced[xPos[i]] = x[i];
@@ -210,13 +319,24 @@ public class GaussMethod {
             }
         }
 
-        //находим максимальную deltaB
-        double deltaB = 0;
+
+        //находим максимальную deltaBmax
+        double[] deltaB = new double[n];
+        double deltaBmax = 0;
         for (int i = 0; i < n; ++i) {
+            deltaB[i] = bSrc[i] - bWithError[i];
             double curr = Math.abs(bSrc[i] - bWithError[i]);
-            if (curr > deltaB) deltaB = curr;
+            if (curr > deltaBmax) deltaBmax = curr;
         }
-        return deltaB / maxB;
+
+        System.out.println("DeltaB:");
+        for (int i = 0; i < n; ++i){
+            System.out.printf("%.3e\n", deltaB[i]);
+        }
+
+        System.out.println("deltaBmax = " + deltaBmax);
+        System.out.println("maxB = " + maxB);
+        return deltaBmax / maxB;
     }
 
     public void printInfo() {
