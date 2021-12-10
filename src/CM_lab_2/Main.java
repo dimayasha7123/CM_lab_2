@@ -1,13 +1,9 @@
 package CM_lab_2;
 
 
-import GaussMethods.GType;
-import GaussMethods.GaussMethod;
-import LUMethods.LUMethod;
-
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import MethodsForEquations.GaussMethods.GType;
+import MethodsForEquations.GaussMethods.GaussMethod;
+import MethodsForEquations.LUMethods.LUMethod;
 
 public class Main {
 
@@ -26,9 +22,7 @@ public class Main {
                 {13.0, 27.0, 34.0, 156.0, 49.0}
         };
 
-        new LUMethod(data).inverseMatrix();
-
-        new LUMethod(data).Invoke();
+        new LUMethod(data).printInfo();
 
         System.out.println();
         System.out.println();

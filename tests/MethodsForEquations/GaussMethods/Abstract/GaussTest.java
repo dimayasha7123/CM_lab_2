@@ -1,8 +1,8 @@
-package GaussMethods.Abstract;
+package MethodsForEquations.GaussMethods.Abstract;
 
 
-import GaussMethods.GType;
-import GaussMethods.GaussMethod;
+import MethodsForEquations.GaussMethods.GType;
+import MethodsForEquations.GaussMethods.GaussMethod;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

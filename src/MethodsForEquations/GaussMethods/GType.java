@@ -1,4 +1,4 @@
-package GaussMethods;
+package MethodsForEquations.GaussMethods;
 
 public enum GType {
     BY_FIRST,
