@@ -7,7 +7,7 @@
 package MethodsForEquations.LUMethods;
 
 import MethodsForEquations.AbstractMethod;
-import static MethodsForEquations.utils.matrixToString;
+import static MethodsForEquations.Utils.matrixToString;
 
 public class LUMethod extends AbstractMethod {
     //матрицы BC из LU разложения

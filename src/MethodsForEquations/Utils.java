@@ -8,7 +8,7 @@ package MethodsForEquations;
 
 import java.text.DecimalFormat;
 
-public class utils {
+public class Utils {
     public static double[][] unboxDoubleTwoDemArray(Double[][] a) {
         int n = a.length;
         int m = a[0].length;

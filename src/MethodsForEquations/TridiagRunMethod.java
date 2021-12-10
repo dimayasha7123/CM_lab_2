@@ -6,10 +6,9 @@
 
 package MethodsForEquations;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
-import static MethodsForEquations.utils.matrixToString;
+import static MethodsForEquations.Utils.matrixToString;
 
 public class TridiagRunMethod extends AbstractMethod {
 

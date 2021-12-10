@@ -6,11 +6,8 @@
 
 package MethodsForEquations;
 
-import java.text.DecimalFormat;
-import java.util.Arrays;
-
-import static MethodsForEquations.utils.matrixToString;
-import static MethodsForEquations.utils.unboxDoubleTwoDemArray;
+import static MethodsForEquations.Utils.matrixToString;
+import static MethodsForEquations.Utils.unboxDoubleTwoDemArray;
 
 public abstract class AbstractMethod {
     //размерность

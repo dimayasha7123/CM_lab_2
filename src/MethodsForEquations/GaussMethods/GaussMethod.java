@@ -9,7 +9,7 @@ package MethodsForEquations.GaussMethods;
 
 import java.util.Arrays;
 import MethodsForEquations.AbstractMethod;
-import static MethodsForEquations.utils.*;
+import static MethodsForEquations.Utils.*;
 
 
 public class GaussMethod extends AbstractMethod {
