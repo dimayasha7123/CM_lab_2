@@ -25,6 +25,7 @@ public class LUMethod extends AbstractMethod {
         super(a);
     }
 
+    @Override
     public double[] Invoke(boolean print) {
         y = new double[n];
         Blu = new double[n][n];
@@ -66,7 +67,6 @@ public class LUMethod extends AbstractMethod {
             }
         }
 
-        int digits = 3;
         if (print) {
             System.out.println(matrixToString(Blu, digits));
             System.out.println(matrixToString(Clu, digits));
@@ -85,8 +85,6 @@ public class LUMethod extends AbstractMethod {
 
     public double[][] inverseMatrix(boolean print) {
         if (x == null) this.Invoke(true);
-
-        int digits = 6;
 
         double[][] E = new double[n][n];
         double[][] inv = new double[n][n];
@@ -155,8 +153,10 @@ public class LUMethod extends AbstractMethod {
         return inv;
     }
 
+    @Override
     public void printInfo(){
-        if (x == null) this.Invoke(true);
+        Invoke(true);
+        System.out.println("determinant = " + determinant());
         getErrorRate(true);
         inverseMatrix(true);
     }

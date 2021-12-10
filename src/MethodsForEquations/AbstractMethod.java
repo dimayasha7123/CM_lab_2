@@ -9,6 +9,7 @@ package MethodsForEquations;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+import static MethodsForEquations.utils.matrixToString;
 import static MethodsForEquations.utils.unboxDoubleTwoDemArray;
 
 public abstract class AbstractMethod {
@@ -25,6 +26,18 @@ public abstract class AbstractMethod {
 
     //массив X неизвестных
     protected double[] x;
+
+
+    //точность вывода
+    protected int digits = 6;
+    public int getDigits() {
+        return digits;
+    }
+
+    public void setDigits(int digits) {
+        this.digits = digits;
+    }
+
 
     public AbstractMethod(Double[][] a) {
         this(unboxDoubleTwoDemArray(a));
@@ -85,15 +98,44 @@ public abstract class AbstractMethod {
         }
 
         if (print) {
+            char leftUp = '\u239b';
+            char leftMid = '\u239c';
+            char leftDown = '\u239d';
+            char rightUp = '\u239e';
+            char rightMid = '\u239f';
+            char rightDown = '\u23a0';
+
+            int digits = 3;
+
             System.out.println("DeltaB:");
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < n; ++i) {
-                System.out.printf("%.3e\n", deltaB[i]);
+
+                if (i == 0) sb.append(leftUp);
+                else if (i == n - 1) sb.append(leftDown);
+                else sb.append(leftMid);
+
+                sb.append(String.format("%" + (digits + 7) + "." + digits + "e ", deltaB[i]));
+
+                if (i == 0) sb.append(rightUp);
+                else if (i == n - 1) sb.append(rightDown);
+                else sb.append(rightMid);
+                sb.append('\n');
             }
+            System.out.println(sb);
             System.out.println("DeltaBmax = " + deltaBmax);
             System.out.println("MaxB = " + maxB);
             System.out.println("Error = " + deltaBmax / maxB);
         }
         return deltaBmax / maxB;
+    }
+
+    @Override
+    public String toString(){
+        return "Matrix A (source):\n" +
+                matrixToString(a, digits) +
+                "\nVector B (source):\n" +
+                matrixToString(b, digits);
     }
 
     public abstract void printInfo();

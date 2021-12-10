@@ -56,17 +56,15 @@ public class GaussMethod extends AbstractMethod {
         xPos[j] = t;
     }
 
+    @Override
     public double[] Invoke(boolean print) {
-        int dig = 3;
-
         xPos = new int[n];
         for (int i = 0; i < n; i++) {
             xPos[i] = i;
         }
 
         if (print) {
-            System.out.println(matrixToString(a, dig));
-            System.out.println(matrixToString(b, dig));
+            System.out.println(this);
             System.out.println(xMatrix(xPos));
         }
 
@@ -133,8 +131,8 @@ public class GaussMethod extends AbstractMethod {
             }
 
             if (print) {
-                System.out.println(matrixToString(a, dig));
-                System.out.println(matrixToString(b, dig));
+                System.out.println(matrixToString(a, digits));
+                System.out.println(matrixToString(b, digits));
                 System.out.println(xMatrix(xPos));
             }
         }
@@ -164,8 +162,9 @@ public class GaussMethod extends AbstractMethod {
         return x;
     }
 
+    @Override
     public void printInfo(){
-        if (x == null) this.Invoke(true);
+        Invoke(true);
         getErrorRate(true);
     }
 }
