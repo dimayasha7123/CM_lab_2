@@ -10,6 +10,7 @@ package MethodsForEquations.GaussMethods;
 import java.util.Arrays;
 import MethodsForEquations.AbstractMethod;
 import static MethodsForEquations.Utils.*;
+import MethodsForEquations.GaussMethods.GType;
 
 
 public class GaussMethod extends AbstractMethod {
@@ -17,12 +18,12 @@ public class GaussMethod extends AbstractMethod {
     protected int[] xPos;
     protected GType type = GType.BY_FIRST;
 
-    public GaussMethod(Double[][] a, MethodsForEquations.GaussMethods.GType type) {
+    public GaussMethod(Double[][] a, GType type) {
         this(a);
         this.type = type;
     }
 
-    public GaussMethod(double[][] a, MethodsForEquations.GaussMethods.GType type) {
+    public GaussMethod(double[][] a, GType type) {
         this(a);
         this.type = type;
     }
